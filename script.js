@@ -8,9 +8,9 @@ async function register() {
     blood_group: document.getElementById('blood_group').value
   };
 
-  const resultBox = document.getElementById('register-feedback');
-  resultBox.innerText = 'Submitting...';
-  resultBox.style.color = 'black';
+  const feedback = document.getElementById('register-feedback');
+  feedback.innerText = 'Submitting...';
+  feedback.style.color = 'gray';
 
   try {
     const res = await fetch('/api/register', {
@@ -21,25 +21,31 @@ async function register() {
 
     const result = await res.json();
 
+    // Log everything for debugging
+    console.log('✔ res.ok:', res.ok);
+    console.log('✔ result:', result);
+
     if (!res.ok) {
       throw new Error(result.error || 'Registration failed');
     }
 
-    resultBox.innerText = '✅ Donor registered successfully!';
-    resultBox.style.color = 'green';
+    // Handle cases where result.message might not exist
+    feedback.innerText = result.message || '✅ Donor registered successfully!';
+    feedback.style.color = 'green';
 
-    // Optional: clear the form
+    // Clear form
     document.getElementById('name').value = '';
     document.getElementById('contact').value = '';
     document.getElementById('location').value = '';
     document.getElementById('blood_group').value = '';
 
   } catch (err) {
-    console.error('Registration error:', err);
-    resultBox.innerText = '❌ ' + err.message;
-    resultBox.style.color = 'red';
+    console.error('❌ Registration error:', err);
+    feedback.innerText = '❌ ' + err.message;
+    feedback.style.color = 'red';
   }
 }
+
 
 
 
