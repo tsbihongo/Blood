@@ -72,9 +72,22 @@ async function search(event) {
     return;
   }
   try {
-    const res = await fetch(`${apiUrl}/search?blood_group=${encodeURIComponent(bg)}&location=${encodeURIComponent(loc)}`);
+    // Fetch all donors, filter on frontend for flexible matching
+    const res = await fetch(`${apiUrl}/all`);
     if (!res.ok) throw new Error('Search failed');
-    const data = await res.json();
+    let data = await res.json();
+    // Filter by blood group
+    if (bg.endsWith('+') || bg.endsWith('-')) {
+      // Exact match
+      data = data.filter(d => (d.blood_group || '').toUpperCase() === bg);
+    } else {
+      // Match all blood groups starting with the letter (e.g., O => O+, O-)
+      data = data.filter(d => (d.blood_group || '').toUpperCase().startsWith(bg));
+    }
+    // Filter by location if provided
+    if (loc) {
+      data = data.filter(d => (d.location || '').toLowerCase().includes(loc.toLowerCase()));
+    }
     display(data);
     if (data.length === 0) searchMsg.textContent = 'No donors found.';
   } catch (err) {
