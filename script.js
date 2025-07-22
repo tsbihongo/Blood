@@ -1,6 +1,7 @@
 const apiUrl = '/api';
 
-async function register() {
+async function register(event) {
+  if (event) event.preventDefault();
   const data = {
     name: document.getElementById('name').value,
     contact: document.getElementById('contact').value,
@@ -9,8 +10,10 @@ async function register() {
   };
 
   const feedback = document.getElementById('register-feedback');
+  const registerBtn = document.getElementById('registerBtn');
   feedback.innerText = 'Submitting...';
   feedback.style.color = 'gray';
+  registerBtn.disabled = true;
 
   try {
     const res = await fetch('/api/register', {
@@ -25,7 +28,6 @@ async function register() {
       throw new Error(result.error || 'Registration failed');
     }
 
-    // ✅ Show message on screen
     feedback.innerText = result.message || '✅ Donor registered successfully!';
     feedback.style.color = 'green';
 
@@ -35,9 +37,18 @@ async function register() {
     document.getElementById('location').value = '';
     document.getElementById('blood_group').value = '';
 
+    // Fade out the success message after 2.5 seconds
+    setTimeout(() => {
+      if (feedback.innerText === (result.message || '✅ Donor registered successfully!')) {
+        feedback.innerText = '';
+      }
+    }, 2500);
+
   } catch (err) {
     feedback.innerText = '❌ ' + err.message;
     feedback.style.color = 'red';
+  } finally {
+    registerBtn.disabled = false;
   }
 }
 
