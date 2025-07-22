@@ -1,22 +1,40 @@
 <!DOCTYPE html>
 <html>
-<head><title>Blood Donor App</title></head>
+<head>
+  <title>Blood Donor App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 <body>
-  <h2>Register</h2>
-  <input id="name" placeholder="Name" />
-  <input id="contact" placeholder="Contact" />
-  <input id="location" placeholder="Location" />
-  <input id="blood_group" placeholder="Blood Group" />
-  <button onclick="register()">Register</button>
-
-  <h2>Search</h2>
-  <input id="search_bg" placeholder="Blood Group" />
-  <input id="search_loc" placeholder="Location (optional)" />
-  <button onclick="search()">Search</button>
-  <button onclick="showAll()">Show All</button>
-
-  <div id="results"></div>
-
+  <div class="container">
+    <div class="form-section">
+      <h2>Register as Donor</h2>
+      <form id="registerForm" onsubmit="register(event)">
+        <label for="name">Name:</label>
+        <input id="name" name="name" placeholder="Name" required />
+        <label for="contact">Contact:</label>
+        <input id="contact" name="contact" placeholder="Contact" required />
+        <label for="location">Location:</label>
+        <input id="location" name="location" placeholder="Location" required />
+        <label for="blood_group">Blood Group:</label>
+        <input id="blood_group" name="blood_group" placeholder="Blood Group" required />
+        <button type="submit" id="registerBtn">Register</button>
+        <div id="registerMsg" class="message"></div>
+      </form>
+    </div>
+    <div class="form-section">
+      <h2>Search Donors</h2>
+      <form id="searchForm" onsubmit="search(event)">
+        <label for="search_bg">Blood Group:</label>
+        <input id="search_bg" name="search_bg" placeholder="Blood Group" required />
+        <label for="search_loc">Location (optional):</label>
+        <input id="search_loc" name="search_loc" placeholder="Location (optional)" />
+        <button type="submit" id="searchBtn">Search</button>
+        <button type="button" onclick="showAll()">Show All</button>
+        <div id="searchMsg" class="message"></div>
+      </form>
+      <div id="results"></div>
+    </div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>

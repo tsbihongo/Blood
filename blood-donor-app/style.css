@@ -1,0 +1,97 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f7f7f7;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem auto;
+  max-width: 900px;
+}
+
+.form-section {
+  background: #fff;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  min-width: 320px;
+  flex: 1 1 350px;
+}
+
+h2 {
+  margin-top: 0;
+  color: #b71c1c;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 0.2rem;
+}
+
+input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+button {
+  background: #b71c1c;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.2s;
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+button[type="button"] {
+  background: #757575;
+  margin-left: 0.5rem;
+}
+
+.message {
+  min-height: 1.2em;
+  color: #b71c1c;
+  margin-top: 0.3rem;
+  font-size: 0.98em;
+}
+
+#results {
+  margin-top: 1.5rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fafafa;
+}
+
+th, td {
+  padding: 0.7rem 0.5rem;
+  border: 1px solid #e0e0e0;
+  text-align: left;
+}
+
+th {
+  background: #ef9a9a;
+  color: #b71c1c;
+} 
