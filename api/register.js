@@ -1,5 +1,9 @@
 const supabase = require('../lib/supabase');
 
+console.log('🔑 SUPABASE_URL:', process.env.SUPABASE_URL);
+console.log('🔑 SUPABASE_KEY:', process.env.SUPABASE_KEY);
+
+
 module.exports = async (req, res) => {
   try {
     if (req.method !== 'POST') {
