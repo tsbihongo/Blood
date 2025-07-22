@@ -75,8 +75,35 @@ button[type="button"] {
   font-size: 0.98em;
 }
 
+.results-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+  margin-bottom: 2rem;
+}
+
 #results {
-  margin-top: 1.5rem;
+  min-width: 350px;
+  max-width: 700px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 1.5rem 1rem;
+}
+
+/* Ensure form sections do not expand with results */
+.container {
+  align-items: flex-start;
+}
+
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .results-container {
+    margin-top: 1.5rem;
+  }
 }
 
 table {

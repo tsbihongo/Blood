@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Blood Donor App</title>
+  <title>Blood Finder</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,8 +19,6 @@
         <input id="blood_group" name="blood_group" placeholder="Blood Group" required />
         <button type="submit" id="registerBtn">Register</button>
         <p id="register-feedback" style="font-weight: bold; margin-top: 10px;"></p>
-
-
         <div id="registerMsg" class="message"></div>
       </form>
     </div>
@@ -35,8 +33,10 @@
         <button type="button" onclick="showAll()">Show All</button>
         <div id="searchMsg" class="message"></div>
       </form>
-      <div id="results"></div>
     </div>
+  </div>
+  <div class="results-container">
+    <div id="results"></div>
   </div>
   <script src="script.js"></script>
 </body>
