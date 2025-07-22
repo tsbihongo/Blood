@@ -21,23 +21,19 @@ async function register() {
 
     const result = await res.json();
 
-    // Log everything for debugging
-    console.log('✔ res.ok:', res.ok);
-    console.log('✔ result:', result);
+    // If registration succeeded, show confirmation regardless of message
+    if (res.ok) {
+      feedback.innerText = '✅ Donor registered successfully!';
+      feedback.style.color = 'green';
 
-    if (!res.ok) {
+      // Optional: Clear the form
+      document.getElementById('name').value = '';
+      document.getElementById('contact').value = '';
+      document.getElementById('location').value = '';
+      document.getElementById('blood_group').value = '';
+    } else {
       throw new Error(result.error || 'Registration failed');
     }
-
-    // Handle cases where result.message might not exist
-    feedback.innerText = result.message || '✅ Donor registered successfully!';
-    feedback.style.color = 'green';
-
-    // Clear form
-    document.getElementById('name').value = '';
-    document.getElementById('contact').value = '';
-    document.getElementById('location').value = '';
-    document.getElementById('blood_group').value = '';
 
   } catch (err) {
     console.error('❌ Registration error:', err);
@@ -45,6 +41,7 @@ async function register() {
     feedback.style.color = 'red';
   }
 }
+
 
 
 
