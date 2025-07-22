@@ -1,44 +1,33 @@
 const apiUrl = '/api';
 
-async function register(event) {
-  event.preventDefault();
-  const registerBtn = document.getElementById('registerBtn');
-  const registerMsg = document.getElementById('registerMsg');
-  registerMsg.textContent = '';
-  registerBtn.disabled = true;
-
-  const name = document.getElementById('name').value.trim();
-  const contact = document.getElementById('contact').value.trim();
-  const location = document.getElementById('location').value.trim();
-  const blood_group = document.getElementById('blood_group').value.trim().toUpperCase();
-
-  // Basic validation
-  if (!name || !contact || !location || !blood_group) {
-    registerMsg.textContent = 'All fields are required.';
-    registerBtn.disabled = false;
-    return;
-  }
-  if (!/^A|B|AB|O[+-]?$/.test(blood_group)) {
-    registerMsg.textContent = 'Invalid blood group.';
-    registerBtn.disabled = false;
-    return;
-  }
+async function register() {
+  const data = {
+    name: document.getElementById('name').value,
+    contact: document.getElementById('contact').value,
+    location: document.getElementById('location').value,
+    blood_group: document.getElementById('blood_group').value
+  };
 
   try {
-    const res = await fetch(`${apiUrl}/register`, {
+    const res = await fetch('/api/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, contact, location, blood_group })
+      body: JSON.stringify(data)
     });
-    if (!res.ok) throw new Error('Registration failed');
-    registerMsg.textContent = 'Registered successfully!';
-    document.getElementById('registerForm').reset();
+
+    const result = await res.json();
+
+    if (!res.ok) {
+      throw new Error(result.error || 'Registration failed');
+    }
+
+    alert('✅ ' + result.message);
   } catch (err) {
-    registerMsg.textContent = 'Error: ' + err.message;
-  } finally {
-    registerBtn.disabled = false;
+    console.error('Registration error:', err);
+    alert('❌ ' + err.message);
   }
 }
+
 
 async function search(event) {
   if (event) event.preventDefault();
