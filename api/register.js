@@ -1,7 +1,5 @@
 const supabase = require('../lib/supabase');
 
-console.log('🔑 SUPABASE_URL:', process.env.SUPABASE_URL);
-console.log('🔑 SUPABASE_KEY:', process.env.SUPABASE_KEY);
 
 
 module.exports = async (req, res) => {
@@ -31,4 +29,7 @@ module.exports = async (req, res) => {
     console.error('❌ Internal Server Error:', err.message);
     res.status(500).json({ error: 'Server error' });
   }
+  console.log('🔑 SUPABASE_URL:', process.env.SUPABASE_URL);
+console.log('🔑 SUPABASE_KEY:', process.env.SUPABASE_KEY);
+
 };
