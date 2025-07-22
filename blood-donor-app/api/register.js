@@ -1,15 +1,17 @@
-const fs = require('fs');
-const path = require('path');
+const supabase = require('../lib/supabase');
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
-    res.status(405).send('Only POST allowed');
-    return;
+    return res.status(405).send('Only POST allowed');
   }
 
-  const file = path.resolve(__dirname, '../donors.json');
-  const donors = JSON.parse(fs.readFileSync(file));
-  donors.push(req.body);
-  fs.writeFileSync(file, JSON.stringify(donors, null, 2));
-  res.status(200).json({ message: 'Donor registered' });
+  const { name, contact, location, blood_group } = req.body;
+
+  const { data, error } = await supabase
+    .from('donors')
+    .insert([{ name, contact, location, blood_group }]);
+
+  if (error) return res.status(500).json({ error: error.message });
+
+  res.status(200).json({ message: 'Donor registered successfully' });
 };

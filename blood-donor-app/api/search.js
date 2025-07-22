@@ -1,15 +1,16 @@
-const fs = require('fs');
-const path = require('path');
+const supabase = require('../lib/supabase');
 
 module.exports = async (req, res) => {
   const { blood_group, location } = req.query;
-  const file = path.resolve(__dirname, '../donors.json');
-  const donors = JSON.parse(fs.readFileSync(file));
 
-  const result = donors.filter(d =>
-    d.blood_group === blood_group &&
-    (!location || d.location.toLowerCase().includes(location.toLowerCase()))
-  );
+  let query = supabase.from('donors').select('*');
 
-  res.status(200).json(result);
+  if (blood_group) query = query.eq('blood_group', blood_group);
+  if (location) query = query.ilike('location', `%${location}%`);
+
+  const { data, error } = await query;
+
+  if (error) return res.status(500).json({ error: error.message });
+
+  res.status(200).json(data);
 };

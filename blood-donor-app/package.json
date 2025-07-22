@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@supabase/supabase-js": "^2.52.0",
     "fs": "^0.0.1-security"
   }
 }
