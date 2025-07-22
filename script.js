@@ -8,6 +8,10 @@ async function register() {
     blood_group: document.getElementById('blood_group').value
   };
 
+  const resultBox = document.getElementById('register-feedback');
+  resultBox.innerText = 'Submitting...';
+  resultBox.style.color = 'black';
+
   try {
     const res = await fetch('/api/register', {
       method: 'POST',
@@ -21,12 +25,22 @@ async function register() {
       throw new Error(result.error || 'Registration failed');
     }
 
-    alert('✅ ' + result.message);
+    resultBox.innerText = '✅ Donor registered successfully!';
+    resultBox.style.color = 'green';
+
+    // Optional: clear the form
+    document.getElementById('name').value = '';
+    document.getElementById('contact').value = '';
+    document.getElementById('location').value = '';
+    document.getElementById('blood_group').value = '';
+
   } catch (err) {
     console.error('Registration error:', err);
-    alert('❌ ' + err.message);
+    resultBox.innerText = '❌ ' + err.message;
+    resultBox.style.color = 'red';
   }
 }
+
 
 
 async function search(event) {
